@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>Index</title>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const uploadForm = document.getElementById('uploadForm');
+            const fileInput = uploadForm.querySelector('input[type="file"]');
+            const submitButton = uploadForm.querySelector('input[type="submit"]');
+
+            uploadForm.addEventListener('submit', function(event) {
+                const files = fileInput.files;
+                for (let i = 0; i < files.length; i++) {
+                    if (files[i].size > 1048576) { // 1MB = 1048576 bytes
+                        alert('ファイルサイズが1MBを超えています: ' + files[i].name);
+                        event.preventDefault();
+                        return;
+                    }
+                }
+            });
+        });
+    </script>
+</head>
+<body>
+    <form method="POST" enctype="multipart/form-data" id="uploadForm">
+        <label>
+            画像1<input type="file" name="img_name" accept="image/*" multiple>
+        </label>
+        <input type="submit" name="confirm" value="実行"></br></br>
+    </form>
+</body>
+</html>
