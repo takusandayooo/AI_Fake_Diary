@@ -5,8 +5,10 @@ from module.create_image import create_image
 from module.gpt_4o_mini import make_nikki_from_image
 from module.make_word import make_word
 import glob
+from dotenv import load_dotenv
+load_dotenv()
 
-OPEN_AI_API_KEY = "OPEN_AI_API_KEY"
+OPEN_AI_API_KEY = os.getenv("OPEN_AI_API_KEY")
 
 UPLOAD_FOLDER = './uploads'
 
@@ -47,4 +49,5 @@ def root_func_post():
 
 if __name__ == '__main__':
     app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-    app.run(debug=True, host='0.0.0.0')
+    pc="cuda" #NOTE: もしAppleシリコンのMacを使っている場合は`mps`に変更してください
+    app.run(debug=True)
