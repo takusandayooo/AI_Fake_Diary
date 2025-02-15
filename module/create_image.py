@@ -2,7 +2,7 @@ from diffusers import StableDiffusionImg2ImgPipeline, DPMSolverMultistepSchedule
 import torch
 from PIL import Image
 
-def create_image(img_path):
+def create_image(img_path,pc):
     # 利用したいAIモデル
     model_id = "CompVis/stable-diffusion-v1-4"
 
@@ -12,7 +12,7 @@ def create_image(img_path):
 
     # GPUを使うように変更
     try:
-        pipeline = pipeline.to("cuda")
+        pipeline = pipeline.to(pc)
     except:
         print("No GPU found, using CPU")
     init_image = Image.open(img_path)
