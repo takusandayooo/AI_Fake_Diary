@@ -12,20 +12,25 @@ img2imgの使用モデルは、[CompVis/stable-diffusion-v1-4](https://huggingfa
 
 ## 使い方
 1. OpenAIのAPIキーを取得し、[app.py](app.py)の`OPEN_AI_API_KEY`に設定 ※GPT-4o miniを使用
-1. [`app.py`](app.py)を実行してコンソールに表示されるURLにアクセスすると、AI嘘日記のWebアプリが起動
-1. 画像をアップロードし、実行ボタンを押すと、AI嘘日記が生成 ※写真サイズは最大1MB
-1. しばらくすると、webページが更新されpdfファイルが表示
+2. Appleシリコン(M1以降のパソコン)の場合は`pc="cuda`の箇所を`pc="mps"`に変更
+3. [`app.py`](app.py)を実行してコンソールに表示されるURLにアクセスすると、AI嘘日記のWebアプリが起動
+4. 画像をアップロードし、実行ボタンを押すと、AI嘘日記が生成 ※写真サイズは最大1MB
+5. しばらくすると、webページが更新されpdfファイルが表示
 
-## モジュールのインストール
-cuda12.4の場合
+
+## モジュールのインストール ※mac環境でrequirements.txtを作成したので、windows環境での動作は未確認
 ```
 pip install flask
-pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu124
+pip install torch torchvision torchaudio
+pip install python-dotenv
 pip install transformers
 pip install openai
 pip install docx2pdf
 pip install python-docx
+pip install diffusers
 ```
+
+
 
 ## 参考URL
 - [python-docxによるWordファイル操作方法のまとめ
