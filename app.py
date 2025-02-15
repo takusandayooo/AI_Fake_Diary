@@ -40,7 +40,7 @@ def root_func_post():
     
     file=glob.glob("./uploads/*")[0]
     print(file)
-    create_image(file)
+    create_image(file,device)
     result = make_nikki_from_image(file,OPEN_AI_API_KEY)
     make_word(result)
     time.sleep(2)
@@ -49,5 +49,6 @@ def root_func_post():
 
 if __name__ == '__main__':
     app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-    pc="cuda" #NOTE: もしAppleシリコンのMacを使っている場合は`mps`に変更してください
+    global device
+    device="cuda" #NOTE: もしAppleシリコンのMacを使っている場合は`mps`に変更してください
     app.run(debug=True)
