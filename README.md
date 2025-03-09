@@ -1,8 +1,9 @@
 # AI嘘日記
 
 ## 概要
-AI嘘日記は、OpenAIのGPT-4o miniを使用して、入力された写真に対してスタイル転送によるイラスト化を行い、その結果を元にAIが嘘の日記を生成するWebアプリです。
-img2imgの使用モデルは、[CompVis/stable-diffusion-v1-4](https://huggingface.co/CompVis/stable-diffusion-v1-4)を使用しています。
+AI嘘日記は、OpenAIのGPT-4o miniを使用して、入力された写真に対してスタイル転送によるイラスト化を行い、その結果を元にAIが嘘の日記を生成するWebアプリです。日記を入力すると、AIがその内容に合わせたイラストを生成し、そのイラストと日記をPDFファイルにまとめて表示します。  
+img2imgの使用モデルは、[CompVis/stable-diffusion-v1-4](https://huggingface.co/CompVis/stable-diffusion-v1-4)を使用しています。  
+text2imgの使用モデルは、[Cstabilityai/sdxl-turbo](https://huggingface.co/stabilityai/sdxl-turbo)を使用しています。
 
 ## サンプル
 ### 入力写真
@@ -15,7 +16,8 @@ img2imgの使用モデルは、[CompVis/stable-diffusion-v1-4](https://huggingfa
 2. Appleシリコン(M1以降のパソコン)の場合は`pc="cuda`の箇所を`pc="mps"`に変更
 3. [`app.py`](app.py)を実行してコンソールに表示されるURLにアクセスすると、AI嘘日記のWebアプリが起動
 4. 画像をアップロードし、実行ボタンを押すと、AI嘘日記が生成 ※写真サイズは最大1MB
-5. しばらくすると、webページが更新されpdfファイルが表示
+5. 文章を入力すると、写真がAIによって作成されます
+6. しばらくすると、webページが更新されpdfファイルが表示
 
 
 ## モジュールのインストール ※mac環境でrequirements.txtを作成したので、windows環境での動作は未確認
