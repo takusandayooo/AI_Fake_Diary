@@ -1,4 +1,5 @@
-from diffusers import StableDiffusionImg2ImgPipeline, DPMSolverMultistepScheduler
+from diffusers import StableDiffusionImg2ImgPipeline, DPMSolverMultistepScheduler,AutoPipelineForText2Image
+
 import torch
 from PIL import Image
 
@@ -23,3 +24,12 @@ def create_image(img_path,device):
 
     # 生成画像を表示
     image.save("./photo/result.png")
+def create_image_sdx(prompt,device):
+    pipe = AutoPipelineForText2Image.from_pretrained("stabilityai/sdxl-turbo", torch_dtype=torch.float16, variant="fp16")
+    pipe.to(device)
+    prompt = prompt
+
+    image = pipe(prompt=prompt, num_inference_steps=1, guidance_scale=0.0).images[0]
+    image.save("./photo/result.png")
+
+    return image

@@ -1,33 +1,130 @@
 <!DOCTYPE html>
 <html lang="ja">
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <title>Index</title>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const uploadForm = document.getElementById('uploadForm');
-            const fileInput = uploadForm.querySelector('input[type="file"]');
-            const submitButton = uploadForm.querySelector('input[type="submit"]');
+    <style>
+      /* ページ全体のスタイル */
+      body {
+        font-family: "Noto Sans JP", sans-serif;
+        background: linear-gradient(135deg, #eef2f3 0%, #8e9eab 100%);
+        margin: 0;
+        padding: 0;
+        color: #333;
+      }
 
-            uploadForm.addEventListener('submit', function(event) {
-                const files = fileInput.files;
-                for (let i = 0; i < files.length; i++) {
-                    if (files[i].size > 1048576) { // 1MB = 1048576 bytes
-                        alert('ファイルサイズが1MBを超えています: ' + files[i].name);
-                        event.preventDefault();
-                        return;
-                    }
-                }
-            });
+      /* ページ上部の説明文 */
+      p {
+        margin: 20px;
+        font-size: 16px;
+        line-height: 1.8;
+      }
+
+      /* アップロードフォーム全体のスタイル */
+      form {
+        max-width: 520px;
+        margin: 30px auto;
+        padding: 25px;
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      }
+
+      /* ラベルのスタイル */
+      label {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        margin-bottom: 15px;
+        font-size: 14px;
+      }
+
+      /* ファイル選択やテキスト入力 */
+      input[type="file"],
+      input[type="text"] {
+        margin-left: 10px;
+        font-size: 14px;
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        flex: 1;
+      }
+
+      /* 送信ボタン */
+      input[type="submit"] {
+        display: inline-block;
+        padding: 10px 20px;
+        background-color: #6c63ff;
+        color: #fff;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 14px;
+        transition: background-color 0.3s ease, box-shadow 0.3s ease;
+      }
+
+      input[type="submit"]:hover {
+        background-color: #574ee0;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+      }
+
+      br {
+        margin-bottom: 5px;
+      }
+    </style>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const uploadForm = document.getElementById("uploadForm");
+        const fileInput = uploadForm.querySelector('input[type="file"]');
+        const textInput = uploadForm.querySelector('input[type="text"]');
+
+        uploadForm.addEventListener("submit", function (event) {
+          // ファイルサイズチェック
+          const files = fileInput.files;
+          for (let i = 0; i < files.length; i++) {
+            if (files[i].size > 1048576) {
+              alert("ファイルサイズが1MBを超えています: " + files[i].name);
+              event.preventDefault();
+              return;
+            }
+          }
+
+          // 画像かテキストのどちらか一方だけが入力されていることを確認
+          const hasFile = files.length > 0;
+          const hasText = textInput.value.trim() !== "";
+
+          if (hasFile && hasText) {
+            alert(
+              "画像とテキストの両方は入力できません。どちらか一方を選択してください。"
+            );
+            event.preventDefault();
+            return;
+          }
+
+          if (!hasFile && !hasText) {
+            alert("画像かテキストのどちらか一方を入力してください。");
+            event.preventDefault();
+            return;
+          }
         });
+      });
     </script>
-</head>
-<body>
+  </head>
+
+  <body>
+    <p>
+      画像か日記文章のどちらかを入力してください。<br />
+      画像を入力した場合はAIで文章を生成します。<br />
+      日記文章を入力した場合は画像を生成します。
+    </p>
     <form method="POST" enctype="multipart/form-data" id="uploadForm">
-        <label>
-            画像1<input type="file" name="img_name" accept="image/*" multiple>
-        </label>
-        <input type="submit" name="confirm" value="実行"></br></br>
+      <label>
+        画像<input type="file" name="img_name" accept="image/*" multiple />
+        日記文章<input type="text" name="text1" />
+      </label>
+      <input type="submit" name="confirm" value="実行" />
+      <br /><br />
     </form>
-</body>
+  </body>
 </html>
